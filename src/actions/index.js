@@ -24,7 +24,7 @@ export const passwordChanged = (text) => {
 
 const loginUserSuccess = (dispatch, user) => {
     dispatch({type: LOGIN_SUCCESS, payload: user});
-    Actions.employeeList();
+    Actions.main();
 };
 
 const loginUserFail = dispatch => {
