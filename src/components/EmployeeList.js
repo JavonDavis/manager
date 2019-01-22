@@ -12,9 +12,6 @@ class EmployeeList extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-    }
-
     renderRow(employee) {
         console.log("Render Row");
         console.log(employee.item);

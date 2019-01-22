@@ -3,36 +3,9 @@ import {connect} from 'react-redux';
 import { View, Picker, Text, StyleSheet } from 'react-native';
 import {employeeUpdate, employeeCreate} from '../actions';
 import {Button, Card, CardSection, Input} from './common';
+import EmployeeForm from "./EmployeeForm";
 
 class EmployeeCreate extends Component {
-
-    updateEmployee({ prop, value }) {
-        this.props.employeeUpdate({prop, value})
-    }
-
-    renderPicker() {
-        const days = [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-        ];
-
-        return (
-            <Picker
-                selectedValue={this.props.shift}
-                onValueChange={value => this.props.employeeUpdate({prop: 'shift', value})} >
-                {
-                    days.map((day) => {
-                        return <Picker.Item key={day} label={day} value={day}/>
-                    })
-                }
-            </Picker>
-        );
-    }
 
     onButtonPress() {
         const { name, phone, shift } = this.props;
@@ -45,31 +18,7 @@ class EmployeeCreate extends Component {
         console.log(this.props.employee);
         return (
             <Card>
-                <CardSection>
-                    <Input
-                        label={"Name"}
-                        placeholder={"Jane"}
-                        value={this.props.name}
-                        onChangeText={ value => this.updateEmployee({prop: "name", value})}
-                    />
-                </CardSection>
-
-                <CardSection>
-                    <Input
-                        label={"Phone"}
-                        placeholder={"555-555-5555"}
-                        value={this.props.phone}
-                        onChangeText={ value => this.updateEmployee({prop: "phone", value})}
-                    />
-                </CardSection>
-
-                <CardSection
-                    style={{flexDirection: 'column'}}
-                >
-                    <Text style={styles.pickerLabelStyle}>Shift</Text>
-                    {this.renderPicker()}
-                </CardSection>
-
+                <EmployeeForm {...this.props}/>
                 <CardSection>
                     <Button onPress={this.onButtonPress.bind(this)}>
                         Create
@@ -79,13 +28,6 @@ class EmployeeCreate extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-  pickerLabelStyle: {
-      fontSize: 18,
-      textAlign: 'center'
-  }
-});
 
 function mapStateToProps(state) {
     const { name, phone, shift } = state.employeeForm;
